@@ -1,0 +1,10 @@
+.btn {
+  padding: 16px 30px;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  box-shadow: 0 0 10px 0px rgba(0,0,0,.5);
+  &_primary {
+    background: orange;
+  }
+}

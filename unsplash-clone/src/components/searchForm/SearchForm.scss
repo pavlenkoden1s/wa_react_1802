@@ -1,0 +1,7 @@
+.search-form {
+	width: 100%;
+	border: 1px solid red;
+	&_active {
+		background: red;
+	}
+}
