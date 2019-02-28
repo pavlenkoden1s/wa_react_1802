@@ -1,10 +1,13 @@
 import React, { SyntheticEvent } from 'react';
 
-import { Input, InputTypes } from '../input';
+import { Field, InputTypes } from '../field';
 import classnames from 'classnames';
+
+import './SearchForm.scss';
 
 interface IProps {
     onSubmit: (value: string) => void;
+    className: string;
 }
 
 interface IState {
@@ -13,7 +16,7 @@ interface IState {
 
 export class SearchForm extends React.Component<IProps, IState>{
     public state = {
-        value: '1239'
+        value: ''
     };
 
     private onSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
@@ -26,19 +29,15 @@ export class SearchForm extends React.Component<IProps, IState>{
         this.setState(state => ({...state, value}));
     };
 
-    private onFocus = (e: SyntheticEvent<HTMLInputElement>) => {
-        console.log('Focused', e);
-    };
-
     render() {
         const { value } = this.state;
-        const classNames = classnames('search-form');
+        const classNames = classnames('search-form', this.props.className);
 
         return <form onSubmit={this.onSubmit} className={classNames}>
-            <Input
+            <Field
                 type={InputTypes.TEXT}
                 value={value}
-                onFocus={this.onFocus}
+                placeholder={'Search'}
                 onChange={this.changeHandler} />
         </form>;
     }

@@ -8,5 +8,5 @@ interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button: React.FunctionComponent<IProps> = ({ children, className }) => {
-  return <button className={classnames('btn', className)}>{ children }</button>
+  return <button className={classnames('btn ', className)}>{ children }</button>
 };

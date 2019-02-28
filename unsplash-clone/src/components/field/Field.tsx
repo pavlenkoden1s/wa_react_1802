@@ -1,4 +1,6 @@
-import React, { SyntheticEvent, InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes } from 'react';
+
+import './Field.scss';
 
 export enum InputTypes {
     TEXT = 'text',
@@ -11,15 +13,15 @@ interface IProps extends InputHTMLAttributes<HTMLInputElement> {
     type: InputTypes;
 }
 
-export class Input extends React.PureComponent<IProps> {
+export class Field extends React.PureComponent<IProps> {
     render() {
         const { type, ...restProps } = this.props;
         console.log(restProps);
-        return <div className={'input'}>
+        return <div className={'field'}>
             <input
                 type={type}
                 {...restProps}
-                className={'input__native-input'}/>
+                className={'field__native-input'}/>
         </div>
     }
 }

@@ -12,13 +12,23 @@ interface IProps {
 
 export class Grid extends React.PureComponent<IProps> {
   render() {
+    const {total, items} = this.props;
+
     return <div className={'grid'}>
-      {
-        this.props.items.map(item => {
-          const {description, urls, likes} = item;
-          return <GridItem className={'grid__item'} description={description} url={urls.small} likes={likes}/>;
-        })
-      }
+      <div className='grid__content'>
+        {
+          items.map(item => {
+            const {description, urls, likes, id} = item;
+            return <GridItem
+              className={'grid__item'}
+              id={id}
+              description={description}
+              url={urls.small}
+              likes={likes}/>;
+          })
+        }
+      </div>
+      <div>Found: {total} items</div>
       <Button>Show more</Button>
     </div>;
   }
