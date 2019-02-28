@@ -2,32 +2,62 @@ import React from 'react';
 import axios from 'axios';
 
 import './App.scss';
-import { SearchResponse } from './types/search-api';
+import { Image, SearchResponse } from './types/search-api';
 import { Grid } from './components/grid';
 import { Nav } from './components/nav/Nav';
+import unsplashApi from './apis';
 
 import './App.scss'
+import { Button } from './components/button';
 
-const apiUrl = 'https://api.unsplash.com/search/photos?page=1&query=${SEARCH_PARAM}&client_id=42f00e5ccf3bce6f62206323d3163d3b46ba5674d3196d610db0d2a08434ffd0';
+const apiUrl = '/search/photos';
 
-export class App extends React.Component {
-  state = {
+interface IState {
+  items: Array<Image>;
+  total: number;
+  totalPages: number;
+  currentPage: number;
+  value: string;
+}
+
+export class App extends React.Component<{}, IState> {
+  public state = {
     items: [],
     total: 0,
-    totalPages: 0
+    totalPages: 0,
+    currentPage: 1,
+    value: ''
+  };
+
+  private loadImages = async () => {
+    const currentPage = this.state.currentPage + 1;
+    const { items } = await this.fetchImages(this.state.value, currentPage);
+    const newItems = [...this.state.items, ...items];
+    this.setState(state => ({...state, currentPage, items: newItems}))
+  }
+
+  private fetchImages = async (value: string, page: number) => {
+    const axiosConfig = {
+      params: {
+        query: value,
+        page: page
+      }
+    };
+    const response = await unsplashApi.get<SearchResponse>(apiUrl, axiosConfig);
+    const { total_pages: totalPages, total, results: items } = response.data;
+    return { totalPages, total, items}
   };
 
   private search = async (value: string) => {
-    const response = await axios.get<SearchResponse>(apiUrl.replace('${SEARCH_PARAM}', value));
-    const { total_pages: totalPages, total, results: items } = response.data;
-
-    this.setState(state => ({...state, totalPages, total, items}));
+    const responseData = await this.fetchImages(value, this.state.currentPage);
+    this.setState(state => ({...state, ...responseData, value}));
   };
 
   public render() {
     return <div className={'page-container'}>
       <Nav onSeacrh={this.search}/>
       <Grid {...this.state} />
+      <Button onClick={this.loadImages}>Show more</Button>
     </div>;
   }
 }

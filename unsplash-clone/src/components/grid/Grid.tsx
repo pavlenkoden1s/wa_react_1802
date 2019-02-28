@@ -12,7 +12,7 @@ interface IProps {
 
 export class Grid extends React.PureComponent<IProps> {
   render() {
-    const {total, items} = this.props;
+    const { total, items } = this.props;
 
     return <div className={'grid'}>
       <div className='grid__content'>
@@ -29,7 +29,6 @@ export class Grid extends React.PureComponent<IProps> {
         }
       </div>
       <div>Found: {total} items</div>
-      <Button>Show more</Button>
     </div>;
   }
 }
