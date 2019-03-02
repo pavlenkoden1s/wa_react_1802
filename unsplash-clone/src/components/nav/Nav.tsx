@@ -1,42 +1,36 @@
 import { SearchForm } from '../searchForm';
 import React, { SyntheticEvent } from 'react';
-import { connect } from 'react-redux';
-import { fetchItems } from '../../actions';
 
 import './Nav.scss';
+import { fetchItems } from '../../actions';
+import { connect } from 'react-redux';
 
 interface IProps {
-  textFromRedux: string;
-  onSearch: (e: any) => void,
-  onButtonClick: (s: SyntheticEvent<HTMLButtonElement>) => void
+  onSearch: (value: string) => void,
 }
 
-const Nav: React.FunctionComponent<IProps> = ({onSearch, textFromRedux, onButtonClick}) => {
+const Nav: React.FunctionComponent<IProps> = ({ onSearch }) => {
   return <nav className={'page-nav'}>
     <div className='page-nav__container'>
       <SearchForm className={'page-nav__search-form'} onSubmit={onSearch}/>
-      <button onClick={onButtonClick}>{textFromRedux}</button>
     </div>
   </nav>
 };
 
-const mapStateToProps = (state: any) => {
-  console.log(state);
-  return {
-    textFromRedux: state.unsplash.text
-  }
-};
-
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    onButtonClick: (e: SyntheticEvent<HTMLButtonElement>) => {
-      dispatch(fetchItems())
-    }
+    onSearch: (value: string) => dispatch(fetchItems({value, page: 1}))
   }
 };
 
-const ConnectedNav = connect(mapStateToProps, mapDispatchToProps)(Nav);
+// connect = (stateToProps, dispatchToProps) => {
+//   return (Component) => {
+//     return <Component />
+//   }
+// }
 
-export {ConnectedNav as Nav};
+const NavContainer = connect(null, mapDispatchToProps)(Nav);
+
+export { NavContainer as Nav };
 
 

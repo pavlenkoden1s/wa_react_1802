@@ -3,21 +3,22 @@ import { Image } from '../../types/search-api';
 import { GridItem } from './GridItem';
 import './Grid.scss';
 import { Button } from '../button';
+import { connect } from 'react-redux';
 
 interface IProps {
-  items: Array<Image>;
+  images: Array<Image>;
   totalPages: number;
   total: number;
 }
 
-export class Grid extends React.PureComponent<IProps> {
+class Grid extends React.PureComponent<IProps> {
   render() {
-    const { total, items } = this.props;
+    const { total, images } = this.props;
 
     return <div className={'grid'}>
       <div className='grid__content'>
         {
-          items.map(item => {
+          images.map(item => {
             const {description, urls, likes, id} = item;
             return <GridItem
               className={'grid__item'}
@@ -32,3 +33,16 @@ export class Grid extends React.PureComponent<IProps> {
     </div>;
   }
 }
+
+const mapStateToProps = (state: any) => {
+  debugger;
+  return {
+    images: state.unsplash.images,
+    totalPages: state.unsplash.totalPages,
+    total: state.unsplash.total,
+  }
+};
+
+const GridContainer = connect(mapStateToProps)(Grid);
+
+export { GridContainer as Grid };
