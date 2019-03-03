@@ -1,20 +1,19 @@
 import React from 'react';
-import { Image } from '../../types/search-api';
+import { Image } from '../../types/imagesApi';
 import { GridItem } from './GridItem';
 import './Grid.scss';
-import { Button } from '../button';
-import { connect } from 'react-redux';
 
-interface IProps {
+interface Props {
   images: Array<Image>;
-  totalPages: number;
-  total: number;
+  isLoading: boolean;
 }
 
-class Grid extends React.PureComponent<IProps> {
+export class Grid extends React.PureComponent<Props> {
   render() {
-    const { total, images } = this.props;
-
+    const { images, isLoading } = this.props;
+    if (isLoading) {
+      return <h2>loading...</h2>
+    }
     return <div className={'grid'}>
       <div className='grid__content'>
         {
@@ -29,20 +28,6 @@ class Grid extends React.PureComponent<IProps> {
           })
         }
       </div>
-      <div>Found: {total} items</div>
     </div>;
   }
 }
-
-const mapStateToProps = (state: any) => {
-  debugger;
-  return {
-    images: state.unsplash.images,
-    totalPages: state.unsplash.totalPages,
-    total: state.unsplash.total,
-  }
-};
-
-const GridContainer = connect(mapStateToProps)(Grid);
-
-export { GridContainer as Grid };
