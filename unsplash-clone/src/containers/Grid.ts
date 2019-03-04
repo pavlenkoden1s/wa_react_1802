@@ -14,13 +14,15 @@ export interface IGridStateProps {
 
 export interface IGridDispatchProps {}
 
-const mapStateToProps: any = (state: AppState): IGridStateProps  => {
+type Props = IGridStateProps & IGridDispatchProps & IGridOwnProps
+
+const mapStateToProps = (state: AppState): Props  => {
   return {
     images: getImages(state),
     isLoading: getIsLoading(state),
   };
 };
 
-const GridContainer = connect<IGridStateProps, IGridDispatchProps, IGridOwnProps>(mapStateToProps)(Grid);
+const GridContainer = connect<IGridStateProps, IGridDispatchProps, IGridOwnProps>(mapStateToProps as any)(Grid);
 
 export { GridContainer as Grid };

@@ -7,6 +7,7 @@ import rootReducer  from './store';
 import { App } from './App';
 
 import './index.scss';
+import { HashRouter } from 'react-router-dom';
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const store = createStore(rootReducer, compose(
@@ -15,6 +16,8 @@ const store = createStore(rootReducer, compose(
 ));
 
 ReactDOM.render(<Provider store={store}>
-    <App/>
+    <HashRouter>
+      <App/>
+    </HashRouter>
   </Provider>,
   document.getElementById('root'));

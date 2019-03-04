@@ -19,4 +19,29 @@
   &__search-form {
     width: 50%;
   }
+  &__menu {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__item {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin: 0 10px;
+    &:last-child {
+      margin-right: 0;
+    }
+    > * {
+      color: get-color(text, secondary);
+      display: flex;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      &:hover {
+        color: get-color(text, accent)
+      }
+    }
+  }
 }

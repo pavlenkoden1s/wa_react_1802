@@ -6,15 +6,17 @@ import './Grid.scss';
 interface Props {
   images: Array<Image>;
   isLoading: boolean;
+  title?: string
 }
 
 export class Grid extends React.PureComponent<Props> {
   render() {
-    const { images, isLoading } = this.props;
+    const { images, isLoading, title } = this.props;
     if (isLoading) {
       return <h2>loading...</h2>
     }
     return <div className={'grid'}>
+      <h2>{title}</h2>
       <div className='grid__content'>
         {
           images.map(item => {
