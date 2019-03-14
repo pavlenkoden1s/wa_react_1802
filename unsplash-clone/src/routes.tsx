@@ -1,4 +1,4 @@
-import { Grid } from './containers';
+import { Auth, Grid } from './containers';
 import React from 'react';
 import { RouteChildrenProps } from 'react-router';
 import { SignIn } from './containers/SignIn';
@@ -12,6 +12,16 @@ export const routes = [
       title: 'Test'
     },
     Component: Grid
+  },
+  {
+    title: 'Auth',
+    path: '/auth',
+    props: {
+      title: 'Auth'
+    },
+    Component: (props: RouteChildrenProps) => {
+      return <Auth {...props}/>
+    }
   },
   {
     title: 'Product',

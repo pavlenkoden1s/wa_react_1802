@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
-import rootReducer  from './store';
+import rootReducer from './store';
 import { App } from './App';
 
 import './index.scss';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const store = createStore(rootReducer, compose(
@@ -15,9 +15,10 @@ const store = createStore(rootReducer, compose(
   composeEnhancers()
 ));
 
-ReactDOM.render(<Provider store={store}>
-    <HashRouter>
+ReactDOM.render(
+  <Provider store={ store }>
+    <Router>
       <App/>
-    </HashRouter>
+    </Router>
   </Provider>,
   document.getElementById('root'));
