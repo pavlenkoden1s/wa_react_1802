@@ -5,6 +5,7 @@ import { OrderLine } from './store/OrderLine';
 import { Login } from './components/Login/Login';
 import { Nav } from './components/Nav';
 import { Grid } from './components/Grid';
+import { ButtonWithTooltip } from './components/Button/Button';
 
 interface IProps {
   order?: OrderLine
@@ -17,11 +18,9 @@ class ObserveredApp extends React.Component<any, any> {
     console.log(this.props.order);
     return (
       <div className='App'>
-        <Nav/>
-        <Login />
+        <Nav title={'Hello'}/>
         <Grid />
-        <button onClick={() => this.props.order.setPrice(Math.ceil(Math.random()*100))}>CLICK</button>
-        <br/>{ this.props.orderStore.total }
+        <ButtonWithTooltip title={'Hello world'} tooltipText={'Hello wtooltip'}/>
       </div>
     );
   }

@@ -39,6 +39,7 @@ export class SearchForm extends React.Component<IProps, IState>{
 
         return <form onSubmit={this.onSubmit} className={classNames}>
             <Field
+                tooltipText={'Some cool field'}
                 type={InputTypes.TEXT}
                 value={value}
                 placeholder={'Search'}

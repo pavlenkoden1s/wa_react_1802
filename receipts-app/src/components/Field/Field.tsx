@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
 
 import './Field.scss';
+import { IWithTooltipProps, withTooltip } from '../../hocs/withTooltip';
 
 export enum InputTypes {
     TEXT = 'text',
@@ -9,11 +10,11 @@ export enum InputTypes {
     PHONE = 'phone'
 }
 
-interface IProps extends InputHTMLAttributes<HTMLInputElement> {
+interface IProps extends InputHTMLAttributes<HTMLInputElement>, IWithTooltipProps {
     type: InputTypes;
 }
 
-export class Field extends React.PureComponent<IProps> {
+class Field extends React.PureComponent<IProps> {
     render() {
         const { type, ...restProps } = this.props;
         console.log(restProps);
@@ -25,3 +26,7 @@ export class Field extends React.PureComponent<IProps> {
         </div>
     }
 }
+
+const FieldWithTooltip = withTooltip<IProps>(Field);
+
+export {FieldWithTooltip as Field}
